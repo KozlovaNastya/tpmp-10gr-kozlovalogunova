@@ -1,8 +1,9 @@
 #include <iostream>
 #include "database.h"
 #include <clocale>
-#include "windows.h"
-
+#ifdef _WIN32
+    #include "windows.h"
+#endif
 
 bool login() {
     std::string user, pass;
@@ -14,8 +15,10 @@ bool login() {
 int main() {
     setlocale(LC_ALL, "Russian");
 
+#ifdef _WIN32
     SetConsoleCP(65001);
     SetConsoleOutputCP(65001);
+#endif
 
     if (!login()) { std::cout << "Auth failed!"; return 1; }
 
