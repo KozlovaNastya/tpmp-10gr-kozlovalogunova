@@ -1,5 +1,8 @@
 #include <iostream>
 #include "database.h"
+#include <clocale>
+#include "windows.h"
+
 
 bool login() {
     std::string user, pass;
