@@ -28,10 +28,12 @@ jobs:
 
     - name: Generate Coverage Report
       run: |
-
-        lcov --capture --directory . --output-file coverage.info
-        lcov --remove coverage.info '/usr/*' '*/_deps/*' '*/tests/*' --output-file coverage.info
+        lcov --capture --directory . --output-file coverage.info --ignore-errors mismatch
+        
+        lcov --remove coverage.info '/usr/*' '*/_deps/*' '*/tests/*' --output-file coverage.info --ignore-errors mismatch
+        
         lcov --list coverage.info
+
 
     - name: Upload to Codecov
       uses: codecov/codecov-action@v4
