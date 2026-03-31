@@ -1,11 +1,24 @@
-name: Build App
-on: [push]
+name: GoogleTest CI (Windows)
+
+on: [push, pull_request]
+
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  build_and_test:
+    runs-on: windows-latest
+
     steps:
-      - uses: actions/checkout@v2
-      - name: Install dependencies
-        run: sudo apt-get install libsqlite3-dev
-      - name: Compile
-        run: g++ -Iincludes src/main.cpp src/database.cpp -lsqlite3 -o bin/app
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Configure CMake
+      run: cmake -B build -S . -D FETCHCONTENT_QUIET=OFF
+
+    - name: Build
+
+      run: cmake --build build --config Release
+
+    - name: Run Tests
+
+      working-directory: build
+      run: ctest -C Release --output-on-failure
+
