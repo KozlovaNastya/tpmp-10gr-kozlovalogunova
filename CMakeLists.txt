@@ -1,6 +1,11 @@
 cmake_minimum_required(VERSION 3.14)
 project(Greenhouse)
 
+if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    add_compile_options(--coverage -O0 -g)
+    add_link_options(--coverage)
+endif()
+
 cmake_policy(SET CMP0135 NEW)
 
 set(CMAKE_CXX_STANDARD 17)
