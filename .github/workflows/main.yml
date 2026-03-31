@@ -1,0 +1,24 @@
+name: GoogleTest CI (Windows)
+
+on: [push, pull_request]
+
+jobs:
+  build_and_test:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Configure CMake
+      run: cmake -B build -S . -D FETCHCONTENT_QUIET=OFF
+
+    - name: Build
+
+      run: cmake --build build --config Release
+
+    - name: Run Tests
+
+      working-directory: build
+      run: ctest -C Release --output-on-failure
+
